@@ -11,7 +11,7 @@ body {
   margin: 0;
   padding: 0;
   height: 100vh;
-  background-color: #ffd6e8; /* Rosa claro */
+  background-color: #ffd6e8;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -20,7 +20,36 @@ body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* --- 2. BRILLOS (SPARKLES) --- */
+/* --- PANTALLA DE INICIO (SOLUCIÓN AUDIO) --- */
+#overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 214, 232, 0.95);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  flex-direction: column;
+  cursor: pointer;
+  transition: opacity 0.5s;
+}
+
+#overlay h1 {
+  color: #d81b60;
+  font-size: 2rem;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+/* --- 2. BRILLOS --- */
 .sparkle {
   position: absolute;
   background: white;
@@ -38,19 +67,19 @@ body {
   100% { transform: translateY(-10vh) scale(0); opacity: 0; }
 }
 
-/* --- 3. CONTENEDOR DE LA TARTA --- */
+/* --- 3. CONTENEDOR TARTA --- */
+/* Oculto inicialmente para que empiece al hacer clic */
 .cake-container {
   position: relative;
   width: 300px;
-  height: 400px; /* Espacio suficiente para montar la tarta */
-  display: flex;
-  flex-direction: column-reverse; /* Construimos de abajo hacia arriba visualmente en CSS */
+  height: 400px;
+  display: none; /* Se activa con JS */
+  flex-direction: column-reverse;
   align-items: center;
   justify-content: flex-start;
   padding-bottom: 20px;
 }
 
-/* --- 4. EL PLATO --- */
 .plate {
   width: 320px;
   height: 40px;
@@ -62,35 +91,31 @@ body {
   z-index: 1;
 }
 
-/* --- 5. CAPAS DE LA TARTA (General) --- */
 .cake-element {
-  opacity: 0; /* Invisible al principio */
-  animation: bounceIn 0.8s forwards; /* Animación de caída */
+  opacity: 0;
+  animation: bounceIn 0.8s forwards;
 }
 
-/* Capa de bizcocho (Marrón) */
 .layer {
   width: 250px;
-  height: 50px; /* Mismo tamaño */
+  height: 50px;
   background: linear-gradient(to right, #6d4c41, #5d4037, #4e342e);
   border-radius: 10px;
   position: relative;
   z-index: 5;
-  margin-bottom: -10px; /* Para que se vea 3D compacta */
+  margin-bottom: -10px;
   box-shadow: inset 0 5px 10px rgba(0,0,0,0.3);
 }
 
-/* Relleno (Chocolate Oscuro) */
 .filling {
   width: 240px;
   height: 15px;
-  background: #3e2723; /* Chocolate muy oscuro */
+  background: #3e2723;
   border-radius: 5px;
-  margin: -2px 0; /* Pegado entre capas */
+  margin: -2px 0;
   z-index: 4;
 }
 
-/* Crema Blanca Superior */
 .frosting {
   width: 250px;
   height: 40px;
@@ -101,15 +126,14 @@ body {
   box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
 
-/* --- 6. LA VELA (Palo de fuego) --- */
 .candle {
   width: 14px;
   height: 60px;
   background: repeating-linear-gradient(45deg, #ff9a9e, #ff9a9e 5px, #fff 5px, #fff 10px);
   border-radius: 4px;
   position: absolute;
-  bottom: 230px; /* Ajustado según la altura de las capas */
-  z-index: 2; /* Detrás de la crema un poco si fuera necesario, pero aquí encima */
+  bottom: 230px;
+  z-index: 2;
   opacity: 0;
   animation: riseCandle 1s forwards;
 }
@@ -126,8 +150,7 @@ body {
   animation: flicker 0.3s infinite alternate;
 }
 
-/* --- 7. ANIMACIONES --- */
-/* Animación de "caer" y rebotar un poco (más realista) */
+/* ANIMACIONES */
 @keyframes bounceIn {
   0% { transform: translateY(-300px); opacity: 0; }
   60% { transform: translateY(10px); opacity: 1; }
@@ -145,18 +168,15 @@ body {
   100% { transform: scale(1.2); opacity: 1; }
 }
 
-/* TIEMPOS DE ANIMACIÓN (Retrasos para el orden de montaje) */
-/* Orden: Plato(static) -> Capa1 -> Relleno1 -> Capa2 -> Relleno2 -> Capa3 -> Crema Blanca -> Vela */
-
+/* TIEMPOS */
 .layer-bottom { animation-delay: 0.5s; z-index: 2; bottom: 20px; position: absolute;}
 .filling-1    { animation-delay: 1.0s; z-index: 3; bottom: 60px; position: absolute;}
 .layer-middle { animation-delay: 1.5s; z-index: 4; bottom: 70px; position: absolute;}
 .filling-2    { animation-delay: 2.0s; z-index: 5; bottom: 110px; position: absolute;}
 .layer-top    { animation-delay: 2.5s; z-index: 6; bottom: 120px; position: absolute;}
 .frosting     { animation-delay: 3.0s; z-index: 7; bottom: 160px; position: absolute;}
-.candle       { animation-delay: 3.8s; z-index: 1; bottom: 190px; position: absolute;} /* La vela sale detrás y sube */
+.candle       { animation-delay: 3.8s; z-index: 1; bottom: 190px; position: absolute;}
 
-/* --- 8. TEXTO --- */
 .message {
   margin-top: 30px;
   font-size: 32px;
@@ -167,31 +187,30 @@ body {
   text-shadow: 2px 2px 0px rgba(255, 255, 255, 0.5);
   min-height: 40px;
   text-align: center;
+  opacity: 0; /* Oculto hasta que empiece */
+  transition: opacity 1s;
 }
-
 </style>
 </head>
 <body>
 
-<audio id="bgMusic" autoplay loop>
+<div id="overlay">
+  <h1>🎁 Haz clic para ver tu sorpresa 🎁</h1>
+  <p>(Enciende el sonido 🔊)</p>
+</div>
+
+<audio id="bgMusic" loop>
   <source src="mucia.mp3" type="audio/mpeg">
 </audio>
 
-<div class="cake-container">
+<div class="cake-container" id="cakeContainer">
   <div class="plate"></div>
-
   <div class="cake-element layer layer-bottom"></div>
-  
   <div class="cake-element filling filling-1"></div>
-  
   <div class="cake-element layer layer-middle"></div>
-  
   <div class="cake-element filling filling-2"></div>
-  
   <div class="cake-element layer layer-top"></div>
-  
   <div class="cake-element frosting"></div>
-  
   <div class="candle">
     <div class="flame"></div>
   </div>
@@ -200,55 +219,61 @@ body {
 <div class="message" id="text-area"></div>
 
 <script>
-// --- 1. Generar Brillos en el fondo ---
+// --- 1. LÓGICA DE INICIO (Overlay) ---
+const overlay = document.getElementById('overlay');
+const audio = document.getElementById('bgMusic');
+const cakeContainer = document.getElementById('cakeContainer');
+const textArea = document.getElementById('text-area');
+
+overlay.addEventListener('click', () => {
+  // 1. Ocultar pantalla de inicio
+  overlay.style.opacity = '0';
+  setTimeout(() => { overlay.style.display = 'none'; }, 500);
+
+  // 2. Reproducir música (Ahora sí funciona porque hubo clic)
+  audio.play().catch(error => {
+    console.log("Error de reproducción:", error);
+  });
+
+  // 3. Mostrar la tarta (Inicia las animaciones CSS)
+  cakeContainer.style.display = 'flex';
+  textArea.style.opacity = '1';
+
+  // 4. Iniciar texto y brillos
+  createSparkles();
+  setTimeout(typeText, 2500); // Esperar a que la tarta se monte
+});
+
+// --- 2. BRILLOS ---
 function createSparkles() {
-  const sparkleCount = 30; // Número de brillos
+  const sparkleCount = 30; 
   for (let i = 0; i < sparkleCount; i++) {
     let div = document.createElement('div');
     div.classList.add('sparkle');
-    
-    // Posición y tamaño aleatorio
     let x = Math.random() * 100;
-    let size = Math.random() * 5 + 2; // entre 2px y 7px
+    let size = Math.random() * 5 + 2;
     let delay = Math.random() * 5; 
-    let duration = Math.random() * 5 + 5; // entre 5s y 10s
-    
+    let duration = Math.random() * 5 + 5;
     div.style.left = x + 'vw';
     div.style.width = size + 'px';
     div.style.height = size + 'px';
     div.style.animationDelay = delay + 's';
     div.style.animationDuration = duration + 's';
-    
     document.body.appendChild(div);
   }
 }
-createSparkles();
 
-// --- 2. Texto Máquina de Escribir ---
-// Empezamos a escribir cuando la tarta ya está casi montada (aprox a los 2.5 segundos)
+// --- 3. TEXTO ---
 const fullText = "Happy birthday my love!";
-const textContainer = document.getElementById('text-area');
 let charIndex = 0;
 
 function typeText() {
   if (charIndex < fullText.length) {
-    textContainer.innerHTML += fullText.charAt(charIndex);
+    textArea.innerHTML += fullText.charAt(charIndex);
     charIndex++;
-    setTimeout(typeText, 100); // Velocidad de escritura
+    setTimeout(typeText, 100);
   }
 }
-
-// Retraso inicial para coordinar con la tarta
-setTimeout(typeText, 2500);
-
-// --- Intentar reproducir música si el autoplay falla ---
-document.body.addEventListener('click', function() {
-    const audio = document.getElementById('bgMusic');
-    if (audio.paused) {
-        audio.play();
-    }
-});
-
 </script>
 
 </body>
