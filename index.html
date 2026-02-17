@@ -6,64 +6,123 @@
 <title>Happy Birthday ❤️</title>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
-
 body {
   margin: 0;
   padding: 0;
   height: 100vh;
+  background: linear-gradient(135deg, #ff9a9e, #fad0c4);
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(135deg, #ff9a9e, #fad0c4);
   overflow: hidden;
-  font-family: 'Great Vibes', cursive;
+  font-family: 'Segoe UI', sans-serif;
 }
 
 .container {
   text-align: center;
+  position: relative;
 }
 
 .Happy__Birthday {
   color: #c2185b;
-  font-size: 4em;
+  font-size: 3.5em;
   font-weight: 700;
-  text-shadow: 2px 2px 8px rgba(255, 255, 255, 0.7);
-  animation: glow 2s ease-in-out infinite alternate;
+  margin-top: 30px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: 1s ease;
+  text-shadow: 2px 2px 8px rgba(255,255,255,0.7);
 }
 
-.message {
-  font-size: 2em;
-  color: white;
-  margin-top: 20px;
+.show-text {
+  opacity: 1;
+  transform: translateY(0);
 }
 
-@keyframes glow {
-  from {
-    text-shadow: 0 0 10px #fff, 0 0 20px #ff4081, 0 0 30px #ff4081;
-  }
+/* ===== TARTA ===== */
+
+.cake {
+  position: relative;
+  width: 200px;
+  margin: auto;
+}
+
+.layer {
+  height: 50px;
+  border-radius: 10px;
+  margin: 0 auto;
+  position: relative;
+  transform: translateY(200px);
+  opacity: 0;
+  animation: build 0.8s forwards;
+}
+
+.layer:nth-child(1) {
+  width: 200px;
+  background: #ff8a80;
+  animation-delay: 0.5s;
+}
+
+.layer:nth-child(2) {
+  width: 170px;
+  background: #ff5252;
+  animation-delay: 1.2s;
+}
+
+.layer:nth-child(3) {
+  width: 140px;
+  background: #d81b60;
+  animation-delay: 1.9s;
+}
+
+@keyframes build {
   to {
-    text-shadow: 0 0 20px #fff, 0 0 40px #f50057, 0 0 60px #f50057;
+    transform: translateY(0);
+    opacity: 1;
   }
 }
 
-/* Corazones animados */
+/* Velas */
+
+.candle {
+  width: 10px;
+  height: 40px;
+  background: #fff;
+  position: absolute;
+  top: -40px;
+  left: 50%;
+  transform: translateX(-50%) translateY(200px);
+  opacity: 0;
+  animation: build 0.8s forwards 2.6s;
+}
+
+.flame {
+  width: 12px;
+  height: 12px;
+  background: orange;
+  border-radius: 50%;
+  position: absolute;
+  top: -12px;
+  left: -1px;
+  animation: flicker 0.4s infinite alternate;
+}
+
+@keyframes flicker {
+  from { transform: scale(1); opacity: 0.8; }
+  to { transform: scale(1.2); opacity: 1; }
+}
+
+/* Corazones flotando */
+
 .heart {
   position: absolute;
-  color: rgba(255,255,255,0.8);
   font-size: 20px;
   animation: float 6s linear infinite;
 }
 
 @keyframes float {
-  0% {
-    transform: translateY(100vh) scale(1);
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(-10vh) scale(1.5);
-    opacity: 0;
-  }
+  0% { transform: translateY(100vh); opacity: 1; }
+  100% { transform: translateY(-10vh); opacity: 0; }
 }
 </style>
 </head>
@@ -71,12 +130,27 @@ body {
 <body>
 
 <div class="container">
-  <div class="Happy__Birthday">Happy Birthday!</div>
-  <div class="message">Mi amor, que este día sea tan hermoso como tú ❤️</div>
+  <div class="cake">
+    <div class="layer"></div>
+    <div class="layer"></div>
+    <div class="layer"></div>
+    <div class="candle">
+      <div class="flame"></div>
+    </div>
+  </div>
+
+  <div class="Happy__Birthday" id="text">
+    Happy Birthday, my love ❤️
+  </div>
 </div>
 
 <script>
-// Crear corazones flotando
+// Mostrar texto después de que se arme la tarta
+setTimeout(() => {
+  document.getElementById("text").classList.add("show-text");
+}, 3500);
+
+// Corazones
 function createHeart() {
   const heart = document.createElement("div");
   heart.classList.add("heart");
@@ -90,10 +164,8 @@ function createHeart() {
   }, 6000);
 }
 
-setInterval(createHeart, 300);
+setInterval(createHeart, 400);
 </script>
 
 </body>
 </html>
-
-
