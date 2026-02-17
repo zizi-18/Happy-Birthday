@@ -3,14 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Happy Birthday ❤️</title>
+<title>Happy Birthday My Love</title>
 
 <style>
 body {
   margin: 0;
   padding: 0;
   height: 100vh;
-  background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+  background: #ffd6e8;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -18,62 +18,83 @@ body {
   font-family: 'Segoe UI', sans-serif;
 }
 
+/* ✨ Partículas brillantes */
+.sparkle {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  background: white;
+  border-radius: 50%;
+  box-shadow: 0 0 10px white;
+  animation: float 8s linear infinite;
+  opacity: 0;
+}
+
+@keyframes float {
+  0% { transform: translateY(100vh); opacity: 0; }
+  20% { opacity: 1; }
+  100% { transform: translateY(-10vh); opacity: 0; }
+}
+
 .container {
   text-align: center;
   position: relative;
 }
 
-.Happy__Birthday {
-  color: #c2185b;
-  font-size: 3.5em;
-  font-weight: 700;
-  margin-top: 30px;
-  opacity: 0;
-  transform: translateY(20px);
-  transition: 1s ease;
-  text-shadow: 2px 2px 8px rgba(255,255,255,0.7);
+/* 🍽️ Plato */
+.plate {
+  width: 280px;
+  height: 25px;
+  background: white;
+  border-radius: 50%;
+  margin: auto;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
 }
 
-.show-text {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* ===== TARTA ===== */
-
+/* 🎂 Tarta */
 .cake {
   position: relative;
-  width: 200px;
+  width: 240px;
   margin: auto;
 }
 
 .layer {
-  height: 50px;
-  border-radius: 10px;
+  height: 55px;
   margin: 0 auto;
-  position: relative;
+  border-radius: 10px;
+  background: #5a2d0c; /* marrón */
   transform: translateY(200px);
   opacity: 0;
   animation: build 0.8s forwards;
 }
 
-.layer:nth-child(1) {
-  width: 200px;
-  background: #ff8a80;
-  animation-delay: 0.5s;
+.choco-cream {
+  height: 15px;
+  margin: 0 auto;
+  border-radius: 8px;
+  background: #3b1f0f; /* chocolate oscuro */
+  transform: translateY(200px);
+  opacity: 0;
+  animation: build 0.8s forwards;
 }
 
-.layer:nth-child(2) {
-  width: 170px;
-  background: #ff5252;
-  animation-delay: 1.2s;
+.top-cream {
+  height: 25px;
+  margin: 0 auto;
+  border-radius: 15px;
+  background: white;
+  transform: translateY(200px);
+  opacity: 0;
+  animation: build 0.8s forwards;
 }
 
-.layer:nth-child(3) {
-  width: 140px;
-  background: #d81b60;
-  animation-delay: 1.9s;
-}
+/* Tamaños y tiempos */
+.layer1 { width: 240px; animation-delay: 0.5s; }
+.cream1 { width: 220px; animation-delay: 1.2s; }
+.layer2 { width: 200px; animation-delay: 1.9s; }
+.cream2 { width: 180px; animation-delay: 2.6s; }
+.layer3 { width: 160px; animation-delay: 3.3s; }
+.top-cream { width: 160px; animation-delay: 4s; }
 
 @keyframes build {
   to {
@@ -82,47 +103,44 @@ body {
   }
 }
 
-/* Velas */
-
+/* 🕯️ Vela */
 .candle {
   width: 10px;
-  height: 40px;
-  background: #fff;
+  height: 45px;
+  background: white;
   position: absolute;
-  top: -40px;
+  top: -55px;
   left: 50%;
   transform: translateX(-50%) translateY(200px);
   opacity: 0;
-  animation: build 0.8s forwards 2.6s;
+  animation: build 0.8s forwards 4.7s;
 }
 
 .flame {
-  width: 12px;
-  height: 12px;
+  width: 14px;
+  height: 14px;
   background: orange;
   border-radius: 50%;
   position: absolute;
-  top: -12px;
-  left: -1px;
+  top: -14px;
+  left: -2px;
   animation: flicker 0.4s infinite alternate;
+  box-shadow: 0 0 15px orange;
 }
 
 @keyframes flicker {
   from { transform: scale(1); opacity: 0.8; }
-  to { transform: scale(1.2); opacity: 1; }
+  to { transform: scale(1.3); opacity: 1; }
 }
 
-/* Corazones flotando */
-
-.heart {
-  position: absolute;
-  font-size: 20px;
-  animation: float 6s linear infinite;
-}
-
-@keyframes float {
-  0% { transform: translateY(100vh); opacity: 1; }
-  100% { transform: translateY(-10vh); opacity: 0; }
+/* ✍️ Texto */
+.message {
+  margin-top: 40px;
+  font-size: 28px;
+  font-weight: bold;
+  color: #c2185b;
+  min-height: 40px;
+  letter-spacing: 2px;
 }
 </style>
 </head>
@@ -130,41 +148,54 @@ body {
 <body>
 
 <div class="container">
+
   <div class="cake">
-    <div class="layer"></div>
-    <div class="layer"></div>
-    <div class="layer"></div>
+    <div class="layer layer1"></div>
+    <div class="choco-cream cream1"></div>
+    <div class="layer layer2"></div>
+    <div class="choco-cream cream2"></div>
+    <div class="layer layer3"></div>
+    <div class="top-cream"></div>
+
     <div class="candle">
       <div class="flame"></div>
     </div>
   </div>
 
-  <div class="Happy__Birthday" id="text">
-    Happy Birthday, my love ❤️
-  </div>
+  <div class="plate"></div>
+
+  <div class="message" id="text"></div>
+
 </div>
 
 <script>
-// Mostrar texto después de que se arme la tarta
-setTimeout(() => {
-  document.getElementById("text").classList.add("show-text");
-}, 3500);
 
-// Corazones
-function createHeart() {
-  const heart = document.createElement("div");
-  heart.classList.add("heart");
-  heart.innerHTML = "❤️";
-  heart.style.left = Math.random() * 100 + "vw";
-  heart.style.animationDuration = (Math.random() * 3 + 3) + "s";
-  document.body.appendChild(heart);
+/* ✨ Partículas */
+function createSparkle() {
+  const sparkle = document.createElement("div");
+  sparkle.classList.add("sparkle");
+  sparkle.style.left = Math.random() * 100 + "vw";
+  sparkle.style.animationDuration = (Math.random() * 5 + 5) + "s";
+  document.body.appendChild(sparkle);
+  setTimeout(() => sparkle.remove(), 8000);
+}
+setInterval(createSparkle, 300);
 
-  setTimeout(() => {
-    heart.remove();
-  }, 6000);
+/* ✍️ Texto letra por letra */
+const message = "Happy birthday my love!";
+const textElement = document.getElementById("text");
+let index = 0;
+
+function typeWriter() {
+  if (index < message.length) {
+    textElement.innerHTML += message.charAt(index);
+    index++;
+    setTimeout(typeWriter, 90);
+  }
 }
 
-setInterval(createHeart, 400);
+setTimeout(typeWriter, 800);
+
 </script>
 
 </body>
