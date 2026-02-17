@@ -18,15 +18,15 @@ body {
   font-family: 'Segoe UI', sans-serif;
 }
 
-/* ✨ Brillos flotando */
+/* ✨ Brillos */
 .sparkle {
   position: absolute;
-  width: 4px;
-  height: 4px;
+  width: 5px;
+  height: 5px;
   background: white;
   border-radius: 50%;
-  box-shadow: 0 0 12px white;
-  animation: float 10s linear infinite;
+  box-shadow: 0 0 15px white;
+  animation: float 8s linear infinite;
   opacity: 0;
 }
 
@@ -48,7 +48,7 @@ body {
   background: white;
   border-radius: 50%;
   margin: auto;
-  box-shadow: 0 12px 25px rgba(0,0,0,0.25);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.25);
 }
 
 /* 🎂 Tarta */
@@ -56,63 +56,46 @@ body {
   position: relative;
   width: 260px;
   margin: auto;
-  animation: appear 1s ease-out forwards;
-  transform: translateY(40px);
-  opacity: 0;
 }
 
-@keyframes appear {
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
+.layer, .cream-choco, .cream-top {
+  width: 260px;
+  margin: 0 auto;
+  transform: translateY(200px);
+  opacity: 0;
+  animation: rise 0.8s forwards;
 }
 
 .layer {
-  width: 260px;
   height: 60px;
-  margin: 0 auto;
   border-radius: 12px;
   background: linear-gradient(to bottom, #6b3a17, #4a260f);
-  box-shadow: inset 0 5px 8px rgba(255,255,255,0.2),
-              inset 0 -8px 10px rgba(0,0,0,0.3);
-  animation: build 0.8s forwards;
-  transform: translateY(200px);
-  opacity: 0;
+  box-shadow: inset 0 6px 10px rgba(255,255,255,0.2),
+              inset 0 -8px 12px rgba(0,0,0,0.4);
 }
 
-.choco-cream {
-  width: 260px;
+.cream-choco {
   height: 18px;
-  margin: 0 auto;
   border-radius: 8px;
   background: linear-gradient(to bottom, #3b1f0f, #2a140a);
-  animation: build 0.8s forwards;
-  transform: translateY(200px);
-  opacity: 0;
 }
 
-.top-cream {
-  width: 260px;
+.cream-top {
   height: 30px;
-  margin: 0 auto;
   border-radius: 20px 20px 15px 15px;
-  background: linear-gradient(to bottom, #ffffff, #f3f3f3);
+  background: linear-gradient(to bottom, #ffffff, #f0f0f0);
   box-shadow: inset 0 -5px 8px rgba(0,0,0,0.1);
-  animation: build 0.8s forwards;
-  transform: translateY(200px);
-  opacity: 0;
 }
 
-/* Delays de montaje */
+/* ORDEN DESDE ABAJO */
 .layer1 { animation-delay: 0.5s; }
 .cream1 { animation-delay: 1.2s; }
 .layer2 { animation-delay: 1.9s; }
 .cream2 { animation-delay: 2.6s; }
 .layer3 { animation-delay: 3.3s; }
-.top-cream { animation-delay: 4s; }
+.cream-top { animation-delay: 4s; }
 
-@keyframes build {
+@keyframes rise {
   0% { transform: translateY(200px); opacity: 0; }
   70% { transform: translateY(-10px); opacity: 1; }
   100% { transform: translateY(0); }
@@ -134,17 +117,17 @@ body {
   left: 50%;
   transform: translateX(-50%) translateY(200px);
   opacity: 0;
-  animation: build 0.8s forwards 4.7s;
+  animation: rise 0.8s forwards 4.7s;
   border-radius: 4px;
 }
 
 .flame {
   width: 16px;
-  height: 18px;
+  height: 20px;
   background: radial-gradient(circle, yellow 20%, orange 60%, red 100%);
   border-radius: 50%;
   position: absolute;
-  top: -18px;
+  top: -20px;
   left: -2px;
   animation: flicker 0.3s infinite alternate;
   box-shadow: 0 0 20px orange;
@@ -169,15 +152,21 @@ body {
 
 <body>
 
+<!-- 🎵 Música -->
+<audio autoplay loop>
+  <source src="mucia.mp3" type="audio/mpeg">
+</audio>
+
 <div class="container">
 
   <div class="cake">
+    <!-- DESDE ABAJO HACIA ARRIBA -->
     <div class="layer layer1"></div>
-    <div class="choco-cream cream1"></div>
+    <div class="cream-choco cream1"></div>
     <div class="layer layer2"></div>
-    <div class="choco-cream cream2"></div>
+    <div class="cream-choco cream2"></div>
     <div class="layer layer3"></div>
-    <div class="top-cream"></div>
+    <div class="cream-top"></div>
 
     <div class="candle">
       <div class="flame"></div>
@@ -199,7 +188,7 @@ function createSparkle() {
   sparkle.style.left = Math.random() * 100 + "vw";
   sparkle.style.animationDuration = (Math.random() * 6 + 6) + "s";
   document.body.appendChild(sparkle);
-  setTimeout(() => sparkle.remove(), 10000);
+  setTimeout(() => sparkle.remove(), 8000);
 }
 setInterval(createSparkle, 250);
 
