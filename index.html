@@ -6,50 +6,49 @@
 <title>Happy Birthday My Love</title>
 
 <style>
-/* --- 1. FONDO Y ESCENARIO --- */
+/* 1. ESTILOS GENERALES */
 body {
   margin: 0;
   padding: 0;
   height: 100vh;
-  background-color: #ffd6e8;
+  background-color: #ffd6e8; /* Rosa claro */
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   overflow: hidden;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Segoe UI', sans-serif;
 }
 
-/* --- PANTALLA DE INICIO (SOLUCIÓN AUDIO) --- */
-#overlay {
+/* 2. PANTALLA DE INICIO (Para que funcione el audio) */
+#pantalla-inicio {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(255, 214, 232, 0.95);
+  background: rgba(255, 214, 232, 0.98);
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  z-index: 9999;
-  flex-direction: column;
+  z-index: 1000;
   cursor: pointer;
-  transition: opacity 0.5s;
 }
 
-#overlay h1 {
-  color: #d81b60;
+#pantalla-inicio h1 {
+  color: #c2185b;
   font-size: 2rem;
-  animation: pulse 1.5s infinite;
+  animation: palpitar 1.5s infinite;
 }
 
-@keyframes pulse {
+@keyframes palpitar {
   0% { transform: scale(1); }
   50% { transform: scale(1.1); }
   100% { transform: scale(1); }
 }
 
-/* --- 2. BRILLOS --- */
+/* 3. BRILLOS EN EL AIRE */
 .sparkle {
   position: absolute;
   background: white;
@@ -57,33 +56,31 @@ body {
   box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.8);
   opacity: 0;
   pointer-events: none;
-  animation: floatUp linear infinite;
+  animation: flotar linear infinite;
 }
 
-@keyframes floatUp {
+@keyframes flotar {
   0% { transform: translateY(110vh) scale(0); opacity: 0; }
-  20% { opacity: 1; transform: translateY(80vh) scale(1); }
-  80% { opacity: 1; transform: translateY(20vh) scale(1); }
+  50% { opacity: 1; }
   100% { transform: translateY(-10vh) scale(0); opacity: 0; }
 }
 
-/* --- 3. CONTENEDOR TARTA --- */
-/* Oculto inicialmente para que empiece al hacer clic */
+/* 4. CONTENEDOR TARTA (Se oculta al principio) */
 .cake-container {
+  display: none; /* Se activa con JS */
   position: relative;
   width: 300px;
   height: 400px;
-  display: none; /* Se activa con JS */
   flex-direction: column-reverse;
   align-items: center;
-  justify-content: flex-start;
   padding-bottom: 20px;
 }
 
+/* 5. PLATO Y TARTA */
 .plate {
   width: 320px;
   height: 40px;
-  background: #f0f0f0;
+  background: #fff;
   border-radius: 50%;
   box-shadow: 0 10px 15px rgba(0,0,0,0.2);
   position: absolute;
@@ -93,9 +90,10 @@ body {
 
 .cake-element {
   opacity: 0;
-  animation: bounceIn 0.8s forwards;
+  animation: caer 0.8s forwards;
 }
 
+/* Capas Marrones (Iguales) */
 .layer {
   width: 250px;
   height: 50px;
@@ -107,6 +105,7 @@ body {
   box-shadow: inset 0 5px 10px rgba(0,0,0,0.3);
 }
 
+/* Relleno Chocolate */
 .filling {
   width: 240px;
   height: 15px;
@@ -116,16 +115,18 @@ body {
   z-index: 4;
 }
 
+/* Crema Blanca Superior */
 .frosting {
   width: 250px;
   height: 40px;
-  background: linear-gradient(to bottom, #ffffff, #ececec);
+  background: linear-gradient(to bottom, #ffffff, #f0f0f0);
   border-radius: 15px 15px 10px 10px;
   z-index: 10;
   position: relative;
   box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
 
+/* Vela */
 .candle {
   width: 14px;
   height: 60px;
@@ -135,144 +136,129 @@ body {
   bottom: 230px;
   z-index: 2;
   opacity: 0;
-  animation: riseCandle 1s forwards;
+  animation: subir 1s forwards;
 }
 
 .flame {
-  width: 15px;
-  height: 25px;
+  width: 16px;
+  height: 26px;
   background: radial-gradient(circle at 50% 80%, #fff000, #ff9900, #ff0000);
   border-radius: 50% 50% 20% 20%;
   position: absolute;
-  top: -25px;
-  left: 0;
+  top: -26px;
+  left: -1px;
   box-shadow: 0 0 20px #ff9900;
-  animation: flicker 0.3s infinite alternate;
+  animation: fuego 0.3s infinite alternate;
 }
 
-/* ANIMACIONES */
-@keyframes bounceIn {
+/* Animaciones */
+@keyframes caer {
   0% { transform: translateY(-300px); opacity: 0; }
   60% { transform: translateY(10px); opacity: 1; }
-  80% { transform: translateY(-5px); }
   100% { transform: translateY(0); opacity: 1; }
 }
-
-@keyframes riseCandle {
+@keyframes subir {
   0% { transform: translateY(50px); opacity: 0; }
   100% { transform: translateY(0); opacity: 1; }
 }
-
-@keyframes flicker {
+@keyframes fuego {
   0% { transform: scale(1); opacity: 0.9; }
   100% { transform: scale(1.2); opacity: 1; }
 }
 
-/* TIEMPOS */
-.layer-bottom { animation-delay: 0.5s; z-index: 2; bottom: 20px; position: absolute;}
-.filling-1    { animation-delay: 1.0s; z-index: 3; bottom: 60px; position: absolute;}
-.layer-middle { animation-delay: 1.5s; z-index: 4; bottom: 70px; position: absolute;}
-.filling-2    { animation-delay: 2.0s; z-index: 5; bottom: 110px; position: absolute;}
-.layer-top    { animation-delay: 2.5s; z-index: 6; bottom: 120px; position: absolute;}
-.frosting     { animation-delay: 3.0s; z-index: 7; bottom: 160px; position: absolute;}
-.candle       { animation-delay: 3.8s; z-index: 1; bottom: 190px; position: absolute;}
+/* Tiempos de aparición */
+.pos1 { animation-delay: 0.5s; z-index: 2; bottom: 20px; position: absolute;} /* Capa 1 */
+.pos2 { animation-delay: 1.0s; z-index: 3; bottom: 60px; position: absolute;} /* Relleno */
+.pos3 { animation-delay: 1.5s; z-index: 4; bottom: 70px; position: absolute;} /* Capa 2 */
+.pos4 { animation-delay: 2.0s; z-index: 5; bottom: 110px; position: absolute;} /* Relleno */
+.pos5 { animation-delay: 2.5s; z-index: 6; bottom: 120px; position: absolute;} /* Capa 3 */
+.pos6 { animation-delay: 3.0s; z-index: 7; bottom: 160px; position: absolute;} /* Crema blanca */
+.candle { animation-delay: 3.8s; z-index: 1; bottom: 190px; position: absolute;}
 
+/* 6. TEXTO */
 .message {
-  margin-top: 30px;
+  margin-top: 40px;
   font-size: 32px;
   font-weight: bold;
-  color: #d81b60;
+  color: #c2185b;
   text-transform: uppercase;
-  letter-spacing: 3px;
-  text-shadow: 2px 2px 0px rgba(255, 255, 255, 0.5);
-  min-height: 40px;
+  letter-spacing: 2px;
+  min-height: 50px;
   text-align: center;
-  opacity: 0; /* Oculto hasta que empiece */
+  opacity: 0;
   transition: opacity 1s;
 }
 </style>
 </head>
 <body>
 
-<div id="overlay">
+<div id="pantalla-inicio">
   <h1>🎁 Haz clic para ver tu sorpresa 🎁</h1>
-  <p>(Enciende el sonido 🔊)</p>
+  <p>(Dale clic para que suene la música 🎵)</p>
 </div>
 
-<audio id="bgMusic" loop>
+<audio id="musica" loop>
   <source src="mucia.mp3" type="audio/mpeg">
 </audio>
 
-<div class="cake-container" id="cakeContainer">
+<div class="cake-container" id="escenario">
   <div class="plate"></div>
-  <div class="cake-element layer layer-bottom"></div>
-  <div class="cake-element filling filling-1"></div>
-  <div class="cake-element layer layer-middle"></div>
-  <div class="cake-element filling filling-2"></div>
-  <div class="cake-element layer layer-top"></div>
-  <div class="cake-element frosting"></div>
-  <div class="candle">
+  
+  <div class="cake-element layer pos1"></div>
+  <div class="cake-element filling pos2"></div>
+  <div class="cake-element layer pos3"></div>
+  <div class="cake-element filling pos4"></div>
+  <div class="cake-element layer pos5"></div>
+  <div class="cake-element frosting pos6"></div> <div class="candle">
     <div class="flame"></div>
   </div>
 </div>
 
-<div class="message" id="text-area"></div>
+<div class="message" id="texto"></div>
 
 <script>
-// --- 1. LÓGICA DE INICIO (Overlay) ---
-const overlay = document.getElementById('overlay');
-const audio = document.getElementById('bgMusic');
-const cakeContainer = document.getElementById('cakeContainer');
-const textArea = document.getElementById('text-area');
+// Referencias
+const pantalla = document.getElementById('pantalla-inicio');
+const audio = document.getElementById('musica');
+const escenario = document.getElementById('escenario');
+const textoDiv = document.getElementById('texto');
 
-overlay.addEventListener('click', () => {
-  // 1. Ocultar pantalla de inicio
-  overlay.style.opacity = '0';
-  setTimeout(() => { overlay.style.display = 'none'; }, 500);
-
-  // 2. Reproducir música (Ahora sí funciona porque hubo clic)
-  audio.play().catch(error => {
-    console.log("Error de reproducción:", error);
-  });
-
-  // 3. Mostrar la tarta (Inicia las animaciones CSS)
-  cakeContainer.style.display = 'flex';
-  textArea.style.opacity = '1';
-
-  // 4. Iniciar texto y brillos
-  createSparkles();
-  setTimeout(typeText, 2500); // Esperar a que la tarta se monte
+// AL HACER CLIC
+pantalla.addEventListener('click', () => {
+  pantalla.style.display = 'none'; // Quitar pantalla inicio
+  audio.play();                    // Sonar música
+  escenario.style.display = 'flex'; // Mostrar tarta
+  textoDiv.style.opacity = '1';     // Preparar texto
+  
+  iniciarEfectos();                 // Lanzar brillos y letras
 });
 
-// --- 2. BRILLOS ---
-function createSparkles() {
-  const sparkleCount = 30; 
-  for (let i = 0; i < sparkleCount; i++) {
-    let div = document.createElement('div');
-    div.classList.add('sparkle');
-    let x = Math.random() * 100;
-    let size = Math.random() * 5 + 2;
-    let delay = Math.random() * 5; 
-    let duration = Math.random() * 5 + 5;
-    div.style.left = x + 'vw';
-    div.style.width = size + 'px';
-    div.style.height = size + 'px';
-    div.style.animationDelay = delay + 's';
-    div.style.animationDuration = duration + 's';
-    document.body.appendChild(div);
-  }
-}
+function iniciarEfectos() {
+  // Brillos
+  setInterval(() => {
+    let chispa = document.createElement('div');
+    chispa.classList.add('sparkle');
+    chispa.style.left = Math.random() * 100 + 'vw';
+    chispa.style.width = (Math.random() * 5 + 2) + 'px';
+    chispa.style.height = chispa.style.width;
+    chispa.style.animationDuration = (Math.random() * 3 + 4) + 's';
+    document.body.appendChild(chispa);
+    setTimeout(() => chispa.remove(), 7000);
+  }, 200);
 
-// --- 3. TEXTO ---
-const fullText = "Happy birthday my love!";
-let charIndex = 0;
-
-function typeText() {
-  if (charIndex < fullText.length) {
-    textArea.innerHTML += fullText.charAt(charIndex);
-    charIndex++;
-    setTimeout(typeText, 100);
-  }
+  // Texto letra a letra (Empieza a los 2.5s)
+  const mensaje = "Happy birthday my love!";
+  let i = 0;
+  setTimeout(() => {
+    let intervalo = setInterval(() => {
+      if (i < mensaje.length) {
+        textoDiv.innerHTML += mensaje.charAt(i);
+        i++;
+      } else {
+        clearInterval(intervalo);
+      }
+    }, 100);
+  }, 2500);
 }
 </script>
 
