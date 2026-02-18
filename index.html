@@ -169,4 +169,111 @@ button {
   left: -1px;
   width: 16px;
   height: 20px;
-  background: radial-gradient(circle
+  background: radial-gradient(circle, yellow, orange, red);
+  border-radius: 50%;
+  animation: fuego 0.3s infinite alternate;
+}
+
+@keyframes subir { to { opacity: 1; } }
+@keyframes fuego { to { transform: scale(1.2); } }
+
+/* --- TEXTO --- */
+.message {
+  margin-top: 50px;
+  font-size: 28px;
+  font-weight: bold;
+  color: #c2185b;
+  min-height: 40px;
+}
+
+</style>
+</head>
+<body>
+
+<div id="overlay">
+  <button onclick="empezarFiesta()">🎁 ABRIR REGALO 🎁</button>
+  <p style="margin-top:20px; color: #888;">(Sube el volumen 🔊)</p>
+</div>
+
+<audio id="player" loop>
+  <source src="mucia.mp3" type="audio/mpeg">
+</audio>
+
+<div class="container" id="fiesta">
+  
+  <div class="cake-wrapper">
+    <div class="plate"></div>
+
+    <div id="base1" class="layer"></div>
+    <div id="relleno1" class="filling"></div>
+    
+    <div id="base2" class="layer"></div>
+    <div id="relleno2" class="filling"></div>
+    
+    <div id="base3" class="layer"></div>
+    
+    <div id="crema" class="cream-top"></div>
+
+    <div class="candle">
+      <div class="flame"></div>
+    </div>
+  </div>
+
+  <div class="message" id="texto"></div>
+
+</div>
+
+<script>
+function empezarFiesta() {
+  var audio = document.getElementById("player");
+  var overlay = document.getElementById("overlay");
+  var fiesta = document.getElementById("fiesta");
+
+  // 1. Intentar reproducir audio con control de errores
+  audio.play().then(function() {
+    // Si funciona:
+    overlay.style.display = "none";
+    fiesta.style.display = "flex";
+    iniciarEfectos();
+  }).catch(function(error) {
+    // Si falla:
+    alert("Error de audio: " + error + ". Comprueba que el archivo se llame mucia.mp3");
+    // Aun así mostramos la animación
+    overlay.style.display = "none";
+    fiesta.style.display = "flex";
+    iniciarEfectos();
+  });
+}
+
+function iniciarEfectos() {
+  // Brillos
+  setInterval(function() {
+    var b = document.createElement("div");
+    b.className = "sparkle";
+    b.style.left = Math.random() * 100 + "%";
+    b.style.width = (Math.random() * 5 + 2) + "px";
+    b.style.height = b.style.width;
+    document.body.appendChild(b);
+    setTimeout(function(){ b.remove() }, 5000);
+  }, 300);
+
+  // Texto
+  var msg = "Happy birthday my love!";
+  var i = 0;
+  var txtDiv = document.getElementById("texto");
+  // Empieza a escribir a los 3 segundos (cuando la tarta está casi lista)
+  setTimeout(function() {
+    var intervalo = setInterval(function() {
+      if (i < msg.length) {
+        txtDiv.innerHTML += msg.charAt(i);
+        i++;
+      } else {
+        clearInterval(intervalo);
+      }
+    }, 100);
+  }, 3000);
+}
+</script>
+
+</body>
+</html>
