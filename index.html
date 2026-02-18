@@ -19,7 +19,7 @@ body{
   font-family:sans-serif;
 }
 
-/* ---------- PANTALLA INICIO ---------- */
+/* Pantalla inicio */
 #pantalla-inicio{
   position:fixed;
   width:100%;
@@ -49,7 +49,7 @@ button{
   100%{transform:scale(1);}
 }
 
-/* ---------- ESCENARIO ---------- */
+/* Escenario */
 #escenario{
   display:none;
   width:100%;
@@ -60,14 +60,14 @@ button{
   position:relative;
 }
 
-/* ---------- BRILLOS ---------- */
+/* Brillos */
 .sparkle{
   position:absolute;
   width:5px;
   height:5px;
   background:white;
   border-radius:50%;
-  box-shadow:0 0 12px white;
+  box-shadow:0 0 15px white;
   animation:flotar 8s linear infinite;
   opacity:0;
 }
@@ -78,7 +78,7 @@ button{
   100%{transform:translateY(-10vh);opacity:0;}
 }
 
-/* ---------- TARTA ---------- */
+/* Tarta */
 .cake-wrapper{
   position:relative;
   width:280px;
@@ -95,7 +95,6 @@ button{
   height:30px;
   background:white;
   border-radius:50%;
-  box-shadow:0 5px 15px rgba(0,0,0,0.15);
 }
 
 .layer{
@@ -127,25 +126,18 @@ button{
   width:240px;
   height:35px;
   bottom:225px;
-  background:linear-gradient(to bottom,#ffffff,#f0f0f0);
+  background:white;
   border-radius:15px;
   opacity:0;
-  box-shadow:inset 0 -5px 8px rgba(0,0,0,0.1);
 }
 
-/* ---------- VELA ---------- */
 .candle{
   position:absolute;
   bottom:260px;
   width:15px;
   height:50px;
   background:repeating-linear-gradient(
-    45deg,
-    #ffcdd2,
-    #ffcdd2 5px,
-    white 5px,
-    white 10px
-  );
+    45deg,#ffcdd2,#ffcdd2 5px,white 5px,white 10px);
   border-radius:4px;
   opacity:0;
 }
@@ -155,8 +147,8 @@ button{
   top:-20px;
   width:15px;
   height:20px;
-  background:radial-gradient(circle,yellow 20%,orange 60%,red 100%);
-  border-radius:50% 50% 30% 30%;
+  background:orange;
+  border-radius:50%;
   animation:fuego .3s infinite alternate;
   box-shadow:0 0 20px orange;
 }
@@ -166,7 +158,6 @@ button{
   to{transform:scale(1.2);}
 }
 
-/* ---------- ANIMACIONES ---------- */
 @keyframes caer{
   from{transform:translateY(-300px);opacity:0;}
   to{transform:translateY(0);opacity:1;}
@@ -174,7 +165,6 @@ button{
 
 .animar{animation:caer .6s forwards;}
 
-/* ---------- TEXTO ---------- */
 .message{
   margin-top:40px;
   font-size:28px;
@@ -182,7 +172,6 @@ button{
   font-weight:bold;
   text-transform:uppercase;
   height:40px;
-  text-align:center;
 }
 </style>
 </head>
@@ -190,29 +179,23 @@ button{
 <body>
 
 <div id="pantalla-inicio">
-  <button onclick="abrirRegalo()">🎁 ABRIR SORPRESA</button>
-  <p style="margin-top:15px;color:#777;">(Sube el volumen)</p>
+  <button id="btn">🎁 ABRIR SORPRESA</button>
+  <p>(Sube el volumen)</p>
 </div>
 
-<audio id="musica" preload="auto">
-  <source src="mucia.mp3" type="audio/mpeg">
-</audio>
+<audio id="musica" preload="auto" src="mucia.mp3"></audio>
 
 <div id="escenario">
 
   <div class="cake-wrapper">
     <div class="plate"></div>
-
     <div id="capa1" class="layer"></div>
     <div id="relleno1" class="filling"></div>
     <div id="capa2" class="layer"></div>
     <div id="relleno2" class="filling"></div>
     <div id="capa3" class="layer"></div>
     <div id="crema"></div>
-
-    <div id="vela" class="candle">
-      <div class="flame"></div>
-    </div>
+    <div id="vela" class="candle"><div class="flame"></div></div>
   </div>
 
   <div class="message" id="texto"></div>
@@ -220,14 +203,14 @@ button{
 </div>
 
 <script>
-function abrirRegalo(){
+document.getElementById("btn").addEventListener("click", function(){
 
   document.getElementById("pantalla-inicio").style.display="none";
   document.getElementById("escenario").style.display="flex";
 
   const audio=document.getElementById("musica");
-  audio.volume=0.7;
-  audio.play().catch(()=>alert("Revisa que mucia.mp3 esté en la misma carpeta."));
+  audio.volume=0.8;
+  audio.play();
 
   // Brillos
   setInterval(()=>{
@@ -239,7 +222,7 @@ function abrirRegalo(){
     setTimeout(()=>s.remove(),8000);
   },250);
 
-  // Montaje desde abajo
+  // Montaje
   setTimeout(()=>capa1.classList.add("animar"),200);
   setTimeout(()=>relleno1.classList.add("animar"),700);
   setTimeout(()=>capa2.classList.add("animar"),1200);
@@ -249,7 +232,7 @@ function abrirRegalo(){
   setTimeout(()=>vela.classList.add("animar"),3200);
 
   setTimeout(escribirTexto,3500);
-}
+});
 
 let mensaje="Happy birthday my love!";
 let i=0;
