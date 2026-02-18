@@ -2,264 +2,263 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Happy Birthday</title>
 
 <style>
-/* --- ESTILOS BÁSICOS --- */
-body {
-  margin: 0;
-  padding: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: #ffd6e8; /* Rosa suave */
-  overflow: hidden; /* Evita barras de desplazamiento */
-  font-family: sans-serif;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+body{
+  margin:0;
+  padding:0;
+  width:100vw;
+  height:100vh;
+  background:#ffd6e8;
+  overflow:hidden;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-family:sans-serif;
 }
 
-/* --- PANTALLA DE INICIO (BOTÓN) --- */
-#pantalla-inicio {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: #ffd6e8;
-  z-index: 9999;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+/* ---------- PANTALLA INICIO ---------- */
+#pantalla-inicio{
+  position:fixed;
+  width:100%;
+  height:100%;
+  background:#ffd6e8;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  z-index:9999;
 }
 
-button {
-  background: #e91e63;
-  color: white;
-  border: none;
-  padding: 20px 40px;
-  font-size: 20px;
-  border-radius: 50px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-  cursor: pointer;
-  animation: palpitar 1s infinite;
+button{
+  background:#e91e63;
+  color:white;
+  border:none;
+  padding:20px 40px;
+  font-size:20px;
+  border-radius:50px;
+  cursor:pointer;
+  animation:palpitar 1s infinite;
 }
 
-@keyframes palpitar {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.05); }
-  100% { transform: scale(1); }
+@keyframes palpitar{
+  0%{transform:scale(1);}
+  50%{transform:scale(1.08);}
+  100%{transform:scale(1);}
 }
 
-/* --- ESCENARIO DE LA TARTA --- */
-#escenario {
-  display: none; /* Se oculta al principio */
-  position: relative;
-  width: 100%;
-  height: 100%;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+/* ---------- ESCENARIO ---------- */
+#escenario{
+  display:none;
+  width:100%;
+  height:100%;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  position:relative;
 }
 
-/* --- ELEMENTOS DE LA TARTA --- */
-.cake-wrapper {
-  position: relative;
-  width: 280px;
-  height: 300px;
-  display: flex;
-  justify-content: center;
-  align-items: flex-end; /* Alinear abajo */
+/* ---------- BRILLOS ---------- */
+.sparkle{
+  position:absolute;
+  width:5px;
+  height:5px;
+  background:white;
+  border-radius:50%;
+  box-shadow:0 0 12px white;
+  animation:flotar 8s linear infinite;
+  opacity:0;
 }
 
-/* El Plato */
-.plate {
-  position: absolute;
-  bottom: 0;
-  width: 280px;
-  height: 30px;
-  background: white;
-  border-radius: 50%;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-  z-index: 1;
+@keyframes flotar{
+  0%{transform:translateY(100vh);opacity:0;}
+  20%{opacity:1;}
+  100%{transform:translateY(-10vh);opacity:0;}
 }
 
-/* Capas comunes */
-.layer {
-  position: absolute;
-  width: 240px;
-  background: linear-gradient(to right, #6d4c41, #5d4037);
-  border-radius: 10px;
-  opacity: 0; /* Invisibles al inicio */
+/* ---------- TARTA ---------- */
+.cake-wrapper{
+  position:relative;
+  width:280px;
+  height:320px;
+  display:flex;
+  justify-content:center;
+  align-items:flex-end;
 }
 
-/* Rellenos comunes */
-.filling {
-  position: absolute;
-  width: 230px;
-  height: 12px;
-  background: #3e2723;
-  border-radius: 5px;
-  z-index: 4;
-  opacity: 0;
+.plate{
+  position:absolute;
+  bottom:0;
+  width:280px;
+  height:30px;
+  background:white;
+  border-radius:50%;
+  box-shadow:0 5px 15px rgba(0,0,0,0.15);
 }
 
-/* Posiciones específicas (desde abajo hacia arriba) */
-#capa1 { height: 50px; bottom: 20px; z-index: 2; }
-#relleno1 { bottom: 65px; z-index: 3; }
-#capa2 { height: 50px; bottom: 75px; z-index: 4; }
-#relleno2 { bottom: 120px; z-index: 5; }
-#capa3 { height: 50px; bottom: 130px; z-index: 6; }
-
-/* Crema Blanca */
-#crema {
-  position: absolute;
-  width: 240px;
-  height: 40px;
-  bottom: 175px;
-  background: white;
-  border-radius: 15px 15px 10px 10px;
-  z-index: 7;
-  opacity: 0;
-  box-shadow: inset 0 -5px 5px rgba(0,0,0,0.05);
+.layer{
+  position:absolute;
+  width:240px;
+  height:55px;
+  background:linear-gradient(to bottom,#6b3a17,#4a260f);
+  border-radius:10px;
+  opacity:0;
 }
 
-/* Vela */
-.candle {
-  position: absolute;
-  bottom: 210px;
-  width: 15px;
-  height: 50px;
-  background: repeating-linear-gradient(45deg, #ffcdd2, #ffcdd2 5px, white 5px, white 10px);
-  z-index: 1; /* Detrás de la crema */
-  opacity: 0;
+.filling{
+  position:absolute;
+  width:230px;
+  height:15px;
+  background:#3b1f0f;
+  border-radius:6px;
+  opacity:0;
 }
 
-.flame {
-  position: absolute;
-  top: -20px;
-  left: 0;
-  width: 15px;
-  height: 20px;
-  background: orange;
-  border-radius: 50% 50% 20% 20%;
-  box-shadow: 0 0 10px orange;
-  animation: flicker 0.2s infinite alternate;
+#capa1{bottom:30px;}
+#relleno1{bottom:85px;}
+#capa2{bottom:100px;}
+#relleno2{bottom:155px;}
+#capa3{bottom:170px;}
+
+#crema{
+  position:absolute;
+  width:240px;
+  height:35px;
+  bottom:225px;
+  background:linear-gradient(to bottom,#ffffff,#f0f0f0);
+  border-radius:15px;
+  opacity:0;
+  box-shadow:inset 0 -5px 8px rgba(0,0,0,0.1);
 }
 
-@keyframes flicker { from { transform: scale(1); } to { transform: scale(1.1); } }
-
-/* Animación de entrada (Caída) */
-@keyframes entrada {
-  from { transform: translateY(-300px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
+/* ---------- VELA ---------- */
+.candle{
+  position:absolute;
+  bottom:260px;
+  width:15px;
+  height:50px;
+  background:repeating-linear-gradient(
+    45deg,
+    #ffcdd2,
+    #ffcdd2 5px,
+    white 5px,
+    white 10px
+  );
+  border-radius:4px;
+  opacity:0;
 }
 
-@keyframes subirVela {
-  from { transform: translateY(50px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
+.flame{
+  position:absolute;
+  top:-20px;
+  width:15px;
+  height:20px;
+  background:radial-gradient(circle,yellow 20%,orange 60%,red 100%);
+  border-radius:50% 50% 30% 30%;
+  animation:fuego .3s infinite alternate;
+  box-shadow:0 0 20px orange;
 }
 
-/* Clases para activar animación con JS */
-.animar-caida { animation: entrada 0.6s forwards; }
-.animar-vela { animation: subirVela 1s forwards; }
+@keyframes fuego{
+  from{transform:scale(1);}
+  to{transform:scale(1.2);}
+}
 
-/* Texto */
-.message {
-  margin-top: 40px;
-  height: 50px;
-  font-size: 28px;
-  color: #c2185b;
-  font-weight: bold;
-  text-align: center;
-  font-family: 'Segoe UI', sans-serif;
-  text-transform: uppercase;
+/* ---------- ANIMACIONES ---------- */
+@keyframes caer{
+  from{transform:translateY(-300px);opacity:0;}
+  to{transform:translateY(0);opacity:1;}
+}
+
+.animar{animation:caer .6s forwards;}
+
+/* ---------- TEXTO ---------- */
+.message{
+  margin-top:40px;
+  font-size:28px;
+  color:#c2185b;
+  font-weight:bold;
+  text-transform:uppercase;
+  height:40px;
+  text-align:center;
 }
 </style>
 </head>
+
 <body>
 
 <div id="pantalla-inicio">
   <button onclick="abrirRegalo()">🎁 ABRIR SORPRESA</button>
-  <p style="margin-top: 15px; color: #888;">(Sube el volumen)</p>
+  <p style="margin-top:15px;color:#777;">(Sube el volumen)</p>
 </div>
 
-<audio id="musica" loop>
+<audio id="musica" preload="auto">
   <source src="mucia.mp3" type="audio/mpeg">
 </audio>
 
 <div id="escenario">
+
   <div class="cake-wrapper">
     <div class="plate"></div>
-    
+
     <div id="capa1" class="layer"></div>
     <div id="relleno1" class="filling"></div>
     <div id="capa2" class="layer"></div>
     <div id="relleno2" class="filling"></div>
     <div id="capa3" class="layer"></div>
     <div id="crema"></div>
-    
+
     <div id="vela" class="candle">
       <div class="flame"></div>
     </div>
   </div>
-  
-  <div class="message" id="texto-final"></div>
+
+  <div class="message" id="texto"></div>
+
 </div>
 
 <script>
-function abrirRegalo() {
-  // 1. Ocultar botón y mostrar escenario (PRIORIDAD VISUAL)
-  document.getElementById('pantalla-inicio').style.display = 'none';
-  document.getElementById('escenario').style.display = 'flex';
+function abrirRegalo(){
 
-  // 2. Intentar reproducir música (Sin bloquear la animación)
-  var audio = document.getElementById('musica');
-  audio.play().catch(function(error) {
-    console.log("No se pudo reproducir el audio automáticamente: " + error);
-    // Si falla, no pasa nada, la tarta sale igual.
-  });
+  document.getElementById("pantalla-inicio").style.display="none";
+  document.getElementById("escenario").style.display="flex";
 
-  // 3. Lanzar animaciones secuenciales
-  // Usamos setTimeout para ir pieza a pieza
-  
-  // Capa 1 (Base)
-  setTimeout(() => document.getElementById('capa1').classList.add('animar-caida'), 100);
-  
-  // Relleno 1
-  setTimeout(() => document.getElementById('relleno1').classList.add('animar-caida'), 600);
-  
-  // Capa 2
-  setTimeout(() => document.getElementById('capa2').classList.add('animar-caida'), 1100);
-  
-  // Relleno 2
-  setTimeout(() => document.getElementById('relleno2').classList.add('animar-caida'), 1600);
-  
-  // Capa 3
-  setTimeout(() => document.getElementById('capa3').classList.add('animar-caida'), 2100);
-  
-  // Crema
-  setTimeout(() => document.getElementById('crema').classList.add('animar-caida'), 2600);
-  
-  // Vela
-  setTimeout(() => document.getElementById('vela').classList.add('animar-vela'), 3200);
+  const audio=document.getElementById("musica");
+  audio.volume=0.7;
+  audio.play().catch(()=>alert("Revisa que mucia.mp3 esté en la misma carpeta."));
 
-  // Texto (Empieza cuando la tarta está casi lista)
-  setTimeout(escribirTexto, 3500);
+  // Brillos
+  setInterval(()=>{
+    const s=document.createElement("div");
+    s.classList.add("sparkle");
+    s.style.left=Math.random()*100+"vw";
+    s.style.animationDuration=(Math.random()*5+5)+"s";
+    document.body.appendChild(s);
+    setTimeout(()=>s.remove(),8000);
+  },250);
+
+  // Montaje desde abajo
+  setTimeout(()=>capa1.classList.add("animar"),200);
+  setTimeout(()=>relleno1.classList.add("animar"),700);
+  setTimeout(()=>capa2.classList.add("animar"),1200);
+  setTimeout(()=>relleno2.classList.add("animar"),1700);
+  setTimeout(()=>capa3.classList.add("animar"),2200);
+  setTimeout(()=>crema.classList.add("animar"),2700);
+  setTimeout(()=>vela.classList.add("animar"),3200);
+
+  setTimeout(escribirTexto,3500);
 }
 
-// Función de escribir
-var mensaje = "Happy birthday my love!";
-var i = 0;
-var divTexto = document.getElementById('texto-final');
+let mensaje="Happy birthday my love!";
+let i=0;
 
-function escribirTexto() {
-  if (i < mensaje.length) {
-    divTexto.innerHTML += mensaje.charAt(i);
+function escribirTexto(){
+  if(i<mensaje.length){
+    document.getElementById("texto").innerHTML+=mensaje.charAt(i);
     i++;
-    setTimeout(escribirTexto, 100);
+    setTimeout(escribirTexto,90);
   }
 }
 </script>
